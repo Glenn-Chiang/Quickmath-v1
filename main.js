@@ -27,7 +27,7 @@ let numProblems = 20;
 
 let drillIsActive = false;
 enableSettings();
-
+f
 
 startButton.addEventListener('click', function() {
     toggleStart();
