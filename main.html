@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Quickmath</title>
+    <link rel="stylesheet" href="main.css">
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <header>
+        <img src="images/math-icon.jpg">
+        <h1>Quickmath</h1>
+        <p>Arithmetic Speed Drills</p>
+    </header>
+    <nav>
+        <div class="navlink">
+            <div class="nav-header">
+                <i class="fa fa-home"></i>
+                Home
+            </div>
+        </div>
+        <div class="navlink">
+            <div class="nav-header">
+                <i class="fa fa-gamepad"></i>
+                Games
+            </div>
+            <div class="dropdown">
+                <a href="#">Quickmath</a>
+                <a href="#">Trivia</a>
+                <a href="#">Memory</a>
+            </div>
+        </div>
+        <div class="navlink">
+            <div class="nav-header">
+                <i class="fa fa-bar-chart"></i>
+                Stats
+            </div>
+            <div class="dropdown">
+                <a href="#">Leaderboard</a>
+                <a href="#">My Stats</a>
+            </div>
+        </div>
+        <div class="navlink">
+            <div class="nav-header">
+                <i class="fa fa-user"></i>
+                Profile
+            </div>
+            <div class="dropdown">
+                <a href="#">My Profile</a>
+                <a href="#">Logout</a>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <section class="settings">
+            <div class="choose-mode container">
+                <div class="choose-mode header">
+                    <h2>
+                        Mode
+                    </h2>
+                    <p>Choose a drill mode</p>
+                </div>
+
+                <div class="mode container time">
+                    <div class="mode title time">
+                        <h3>
+                            Frenzy
+                        </h3>
+                        <p class="mode description">
+                            Solve as many problems as possible within the given time
+                        </p>
+                    </div>
+                    <div class="mode options time">
+                        <p>Time in Seconds</p>
+                        <button class="time-btn active" id="time-30">
+                            30
+                        </button>
+                        <button class="time-btn" id="time-60">
+                            60
+                        </button>
+                        <button class="time-btn" id="time-90">
+                            90
+                        </button>
+                        <button class="time-btn" id="time-120">
+                            120
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="mode container number-of-problems">
+                    <div class="mode title number-of-problems">
+                        <h3>
+                            Blitz
+                        </h3>
+                        <p class="mode description">
+                            Solve the given number of problems in the shortest possible time
+                        </p>
+                    </div>
+                    <div class="mode options number-of-problems">
+                        <p>Number of Problems</p>
+                        <button class="num-btn active" id="num-20">
+                            20
+                        </button>
+                        <button class="num-btn" id="num-30">
+                            30
+                        </button>
+                        <button class="num-btn" id="num-50">
+                            50
+                        </button>
+                        <button class="num-btn" id="num-100">
+                            100
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="difficulty container">
+                <div class="difficulty header">
+                    <h2>
+                        Difficulty
+                    </h2>
+                    <p>Choose a difficulty option</p>
+                </div>
+                <div class="difficulty options ">
+                    <div class="difficulty option easy">
+                        <button class="difficulty-btn" id="easy">
+                            Easy
+                        </button>
+                        <div class="description-container">
+                            <button class="description-button">
+                                <i class="fa fa-chevron-down"></i>
+                            </button>
+                            <ul class="description-content">
+                                <li>
+                                    No negative solutions
+                                </li>
+                                <li>
+                                    Addition:<br> (2 to 100) + (2 to 100)
+                                </li>
+                                <li>
+                                    Subtraction:<br> (2 to 100) - (2 to 100)
+                                </li>
+                                <li>
+                                    Multiplication:<br> (2 to 12) x (2 to 12)
+                                </li>
+                            </ul>                
+                        </div>
+                    </div>
+
+                    <div class="difficulty option medium">
+                        <button class="difficulty-btn active" id="medium">
+                            Medium
+                        </button>
+                        <div class="description-container">
+                            <button class="description-button">
+                                <i class="fa fa-chevron-down"></i>
+                            </button>
+                            <ul class="description-content">
+                                <li>
+                                    May have negative solutions
+                                </li>
+                                <li>
+                                    Addition:<br> (2 to 100) + (2 to 100)
+                                </li>
+                                <li>
+                                    Subtraction:<br> (2 to 100) - (2 to 100)
+                                </li>
+                                <li>
+                                    Multiplication:<br> (2 to 12) x (2 to 100)
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+      
+                    <div class="difficulty option hard">
+                        <button class="difficulty-btn" id="hard">
+                            Hard
+                        </button>
+
+                        <div class="description-container">
+                            <button class="description-button">
+                                <i class="fa fa-chevron-down"></i>
+                            </button>
+                            <ul class="description-content">
+                                <li>
+                                    May have negative solutions
+                                </li>
+                                <li>
+                                    Addition:<br> (2 to 200) + (2 to 200)
+                                </li>
+                                <li>
+                                    Subtraction:<br> (2 to 200) - (2 to 200)
+                                </li>
+                                <li>
+                                    Multiplication:<br> (2 to 100) x (2 to 100)
+                                </li>
+                            </ul>
+                        </div>
+                            
+                    </div>
+            </div>
+        </section>
+        
+        <div class="start-quit">
+            <button id="start-btn">
+                <h2>Start</h2>
+            </button>    
+        </div>
+        
+        <section id="drill-window">
+            <div class="drill-info">
+                <h2>
+                    Q<span id=problem-number>1</span><span id="num-problems"></span>
+                </h2>
+                <h2>
+                    Time
+                    <span id="timer"></span>
+                </h2>
+            </div>
+            <div class="problem-container">
+                <h2 class="problem">
+                    <span id=num1></span><span id="operator"></span><span id="num2"></span>
+                    =
+                    <input type="number" id="answer">
+                </h2>
+            </div>
+            <div class="results">
+                <h2>Results</h2>
+                <p>
+                    <span>Mode</span>:<span class="mode"></span>
+                </p>
+                <p>
+                    <span>Difficulty</span>:<span class="difficulty"></span>
+                </p>
+                <p>
+                    <!-- 'setting-type': either 'Number of Problems' or 'Time Limit' -->
+                    <span class="setting-type"></span>:<span class="setting"></span>
+                </p>
+                <p>
+                    <!-- 'score-type': either 'Time Taken' or 'Problems solved' -->
+                    <span class="score-type"></span>:<span class="score"></span>
+                </p>
+                
+            </div>
+
+        </section>
+    </main>
+
+    <script src="main.js"></script>
+</body>
+</html>
