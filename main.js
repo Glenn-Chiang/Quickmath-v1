@@ -27,7 +27,7 @@ let numProblems = 20;
 
 let drillIsActive = false;
 enableSettings();
-f
+
 
 startButton.addEventListener('click', function() {
     toggleStart();
@@ -96,11 +96,11 @@ function toggleSetting(event) {
 
     } else if (clickedButton.classList.contains('time-btn')) {
         toggleButton(clickedButton, timeButtons);
-        timeLimit = Number(clickedButton.id.split('-')[1]);
+        timeLimit = Number(clickedButton.value);
         
     } else {
         toggleButton(clickedButton, numButtons);
-        numProblems = Number(clickedButton.id.split('-')[1]);
+        numProblems = Number(clickedButton.value);
     }
 }
 
