@@ -22,7 +22,7 @@ const answerField = document.getElementById('answer');
 const resultsElem = document.querySelector('.results');
 
 // Default settings
-let mode = 'max-num';
+let mode = 'min-time';
 let difficulty = 'medium';
 let timeLimit = 30;
 let numProblems = 20;
@@ -32,11 +32,10 @@ enableSettings();
 
 
 startButton.addEventListener('click', function() {
-    toggleStart();
-    resultsElem.classList.remove('show');    
-
     if (!drillIsActive) {
     // Start drill
+        toggleStart();
+        resultsElem.classList.remove('show');   
         drillIsActive = true;
 
         if (!drillWindow.classList.contains('active')) {
@@ -58,13 +57,10 @@ startButton.addEventListener('click', function() {
         }
                 
     // Quit drill
-    } else {
-        resetDrill();
-
-        //answerField.removeEventListener('keydown', check_answer)
-
-        drillWindow.classList.remove('active');
-    } 
+    } //else {
+    //     resetDrill();
+    //     drillWindow.classList.remove('active');
+    // } 
 })
 
 
@@ -181,6 +177,7 @@ function runMinTimeDrill(difficulty, numProblems) {
                     toggleStart();
 
                     answerField.removeEventListener('keydown', checkAnswer);
+                    startButton.removeEventListener('click', quit);
 
                     problemContainer.classList.add('hide');
                     resultsElem.classList.add('show');
@@ -200,6 +197,19 @@ function runMinTimeDrill(difficulty, numProblems) {
     }
 
     answerField.addEventListener('keydown', checkAnswer);
+
+    function quit(event) {
+        resetDrill();
+        toggleStart();
+
+        answerField.removeEventListener('keydown', checkAnswer);
+        drillWindow.classList.remove('active');
+        startButton.removeEventListener('click', quit);
+    }
+
+    // If player clicks the quit button during a drill
+    startButton.addEventListener('click', quit)
+
 }
 
 // Solve as many questions as possible within the given time
@@ -216,7 +226,7 @@ function runMaxNumDrill(difficulty, timeLimit) {
             resetDrill();
             toggleStart();
 
-            answerField.removeEventListener('keydown', check_answer);
+            answerField.removeEventListener('keydown', checkAnswer);
 
             problemContainer.classList.add('hide');
             resultsElem.classList.add('show');
@@ -227,7 +237,7 @@ function runMaxNumDrill(difficulty, timeLimit) {
         }
     }, 1000)
 
-    function check_answer(event) {
+    function checkAnswer(event) {
         if (event.key === 'Enter') {
             const answer = Number(event.target.value);
             // If user enters correct answer, progress to next problem
@@ -243,8 +253,19 @@ function runMaxNumDrill(difficulty, timeLimit) {
         }
     }
 
-    answerField.addEventListener('keydown', check_answer)
+    answerField.addEventListener('keydown', checkAnswer);
 
+    function quit(event) {
+        resetDrill();
+        toggleStart();
+
+        answerField.removeEventListener('keydown', checkAnswer);
+        drillWindow.classList.remove('active');
+        startButton.removeEventListener('click', quit);
+    }
+
+    // If player clicks the quit button during a drill
+    startButton.addEventListener('click', quit)
 }
 
 
