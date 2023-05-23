@@ -22,7 +22,7 @@ const answerField = document.getElementById('answer');
 const resultsElem = document.querySelector('.results');
 
 // Default settings
-let mode = 'min-time';
+let mode = 'max-num';
 let difficulty = 'medium';
 let timeLimit = 30;
 let numProblems = 20;
@@ -60,6 +60,9 @@ startButton.addEventListener('click', function() {
     // Quit drill
     } else {
         resetDrill();
+
+        //answerField.removeEventListener('keydown', check_answer)
+
         drillWindow.classList.remove('active');
     } 
 })
@@ -159,7 +162,7 @@ function runMinTimeDrill(difficulty, numProblems) {
     let currentProblem = generateProblem(difficulty);
     renderProblem(currentProblem, problemNumber);
     numProblemsDisplay.innerHTML = '/ ' + numProblems;
-    timerDisplay.innerHTML = '0';
+    timerDisplay.innerHTML = 0;
 
     let timeElapsed = 1;
     timer = setInterval(() => {
@@ -167,7 +170,7 @@ function runMinTimeDrill(difficulty, numProblems) {
         timeElapsed += 1;
     }, 1000)
 
-    function check_answer(event) {
+    function checkAnswer(event) {
         if (event.key === 'Enter') {
             const answer = Number(event.target.value);
             // If user enters correct answer, progress to next problem
@@ -177,7 +180,7 @@ function runMinTimeDrill(difficulty, numProblems) {
                     resetDrill();
                     toggleStart();
 
-                    answerField.removeEventListener('keydown', check_answer);
+                    answerField.removeEventListener('keydown', checkAnswer);
 
                     problemContainer.classList.add('hide');
                     resultsElem.classList.add('show');
@@ -196,69 +199,52 @@ function runMinTimeDrill(difficulty, numProblems) {
         }
     }
 
-    answerField.addEventListener('keydown', check_answer);
-    // answerField.addEventListener('keydown', event => {
-    //     if (event.key === 'Enter') {
-    //         const answer = Number(event.target.value);
-    //         // If user enters correct answer, progress to next problem
-    //         if (answer === currentProblem.solution) {
-    //             // Once user has solved all problems i.e. completed the drill:
-    //             if (problemNumber >= numProblems) {
-    //                 resetDrill();
-    //                 toggleStart();
-
-    //                 problemContainer.classList.add('hide');
-    //                 resultsElem.classList.add('show');
-    //                 displayResults('min-time', difficulty, numProblems, timeElapsed - 1);
-    //                 return;
-    //             }
-
-    //             problemNumber += 1;
-    //             currentProblem = generateProblem(difficulty);
-    //             renderProblem(currentProblem, problemNumber);
-
-    //         // If user enters wrong answer, do not progress to next problem
-    //         } 
-
-    //         answerField.value = '' // Clear the input field regardless of whether the answer is correct or wrong
-    //     }
-    // })
+    answerField.addEventListener('keydown', checkAnswer);
 }
 
 // Solve as many questions as possible within the given time
 function runMaxNumDrill(difficulty, timeLimit) {
     let problemNumber = 1;
     let currentProblem = generateProblem(difficulty);
-    renderProblem(currentProblem); // Display the current problem along with its problem number
+    renderProblem(currentProblem, problemNumber); // Display the current problem along with its problem number
+    timerDisplay.innerHTML = timeLimit;
 
-    let timeLeft = timeLimit;
-    const timer = setInterval(function() {
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            return;
+    let timeLeft = timeLimit - 1;
+    timer = setInterval(() => {
+        timerDisplay.innerHTML = timeLeft;
+        if (timeLeft <= 0) { // Condition to end drill
+            resetDrill();
+            toggleStart();
+
+            answerField.removeEventListener('keydown', check_answer);
+
+            problemContainer.classList.add('hide');
+            resultsElem.classList.add('show');
+            displayResults('max-num', difficulty, timeLimit, problemNumber);
+        
         } else {
-            timerDisplay.innerHTML = timeLeft;
             timeLeft -= 1;
         }
     }, 1000)
 
-    answerField.addEventListener('keydown', function(event) {
+    function check_answer(event) {
         if (event.key === 'Enter') {
             const answer = Number(event.target.value);
             // If user enters correct answer, progress to next problem
             if (answer === currentProblem.solution) {
+                problemNumber += 1;
                 currentProblem = generateProblem(difficulty);
                 renderProblem(currentProblem, problemNumber);
-                problemNumber += 1;
 
             // If user enters wrong answer, do not progress to next problem
-            } else {
-                
             }
 
             answerField.value = '' // Clear the input field regardless of whether the answer is correct or wrong
         }
-    })
+    }
+
+    answerField.addEventListener('keydown', check_answer)
+
 }
 
 
@@ -269,6 +255,7 @@ function renderProblem(problem, problemNumber) {
     operatorElem.innerHTML = problem.operator;
     problemNumberDisplay.innerHTML = problemNumber;
 }
+
 
 function generateProblem(difficulty) {
     let problem; 
@@ -349,9 +336,6 @@ function generateProblem(difficulty) {
     problem.solution = computeSolution(problem);
     return problem;
 }
-
-
-
 
 
 // Toggle difficulty descriptions

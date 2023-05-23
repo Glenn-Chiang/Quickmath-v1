@@ -150,10 +150,6 @@ button.active {
     grid-column: 1 / span 2;
 }  
 
-.mode.container.time {
-    opacity: 0.4;
-}
-
 .mode.title {
     padding: 40px;
 }
