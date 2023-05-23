@@ -25,7 +25,7 @@ const resultsElem = document.querySelector('.results');
 let mode = 'min-time';
 let difficulty = 'medium';
 let timeLimit = 30;
-let numProblems = 2;
+let numProblems = 20;
 
 let drillIsActive = false;
 enableSettings();
@@ -162,12 +162,12 @@ function runMinTimeDrill(difficulty, numProblems) {
     timerDisplay.innerHTML = '0';
 
     let timeElapsed = 1;
-    timer = setInterval(function() {
+    timer = setInterval(() => {
         timerDisplay.innerHTML = timeElapsed;
         timeElapsed += 1;
     }, 1000)
 
-    answerField.addEventListener('keydown', function(event) {
+    function check_answer(event) {
         if (event.key === 'Enter') {
             const answer = Number(event.target.value);
             // If user enters correct answer, progress to next problem
@@ -177,8 +177,9 @@ function runMinTimeDrill(difficulty, numProblems) {
                     resetDrill();
                     toggleStart();
 
+                    answerField.removeEventListener('keydown', check_answer);
+
                     problemContainer.classList.add('hide');
-                    
                     resultsElem.classList.add('show');
                     displayResults('min-time', difficulty, numProblems, timeElapsed - 1);
                     return;
@@ -193,7 +194,35 @@ function runMinTimeDrill(difficulty, numProblems) {
 
             answerField.value = '' // Clear the input field regardless of whether the answer is correct or wrong
         }
-    })
+    }
+
+    answerField.addEventListener('keydown', check_answer);
+    // answerField.addEventListener('keydown', event => {
+    //     if (event.key === 'Enter') {
+    //         const answer = Number(event.target.value);
+    //         // If user enters correct answer, progress to next problem
+    //         if (answer === currentProblem.solution) {
+    //             // Once user has solved all problems i.e. completed the drill:
+    //             if (problemNumber >= numProblems) {
+    //                 resetDrill();
+    //                 toggleStart();
+
+    //                 problemContainer.classList.add('hide');
+    //                 resultsElem.classList.add('show');
+    //                 displayResults('min-time', difficulty, numProblems, timeElapsed - 1);
+    //                 return;
+    //             }
+
+    //             problemNumber += 1;
+    //             currentProblem = generateProblem(difficulty);
+    //             renderProblem(currentProblem, problemNumber);
+
+    //         // If user enters wrong answer, do not progress to next problem
+    //         } 
+
+    //         answerField.value = '' // Clear the input field regardless of whether the answer is correct or wrong
+    //     }
+    // })
 }
 
 // Solve as many questions as possible within the given time
