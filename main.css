@@ -236,6 +236,10 @@ button.active {
     padding: 60px 20px 100px;
 }
 
+.problem-container.hide {
+    display: none;
+}
+
 .problem {
     display: flex;
     align-items: center;
