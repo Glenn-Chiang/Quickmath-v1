@@ -52,7 +52,7 @@ startButton.addEventListener('click', function() {
         if (mode === 'min-time') {
             runMinTimeDrill(difficulty, numProblems);
         }
-        else {
+        else if (mode === 'max-num') {
             runMaxNumDrill(difficulty, timeLimit);
         }
                 
@@ -97,6 +97,34 @@ function disableSettings() {
     }
 }
 
+
+// Choosing mode
+const modeButtons = document.querySelectorAll('.mode.button');
+
+function setMode(event) {
+    mode = event.target.value;
+    // Hide the chosen mode button and show settings options
+    const optionsContainer = event.target.nextElementSibling;
+    
+    event.target.classList.add('hide');
+    optionsContainer.classList.add('show');
+
+    // Hide the other mode's settings and show its button
+    for (let modeButton of modeButtons) {
+        if (modeButton != event.target && modeButton.classList.contains('hide')) {
+            const optionsContainer = modeButton.nextElementSibling;
+            modeButton.classList.remove('hide');
+            optionsContainer.classList.remove('show');
+        }
+    }
+}
+
+for (let modeButton of modeButtons) {
+    modeButton.addEventListener('click', setMode);
+}
+
+
+// Choosing settings for mode and difficulty
 function toggleSetting(event) {
     const clickedButton = event.target;
 
@@ -138,7 +166,7 @@ function displayResults(mode, difficulty, setting, score) {
         document.querySelector('.results span.setting').innerHTML = setting;
         document.querySelector('.results span.score-type').innerHTML = 'Time taken';
         document.querySelector('.results span.score').innerHTML = score + 's';
-    } else {
+    } else if (mode === 'max-num') {
         document.querySelector('.results span.mode').innerHTML = 'Frenzy';
         document.querySelector('.results span.setting-type').innerHTML = 'Time Limit';
         document.querySelector('.results span.setting').innerHTML = Number(setting) + 's';
@@ -218,6 +246,7 @@ function runMaxNumDrill(difficulty, timeLimit) {
     let currentProblem = generateProblem(difficulty);
     renderProblem(currentProblem, problemNumber); // Display the current problem along with its problem number
     timerDisplay.innerHTML = timeLimit;
+    numProblemsDisplay.innerHTML = '';
 
     let timeLeft = timeLimit - 1;
     timer = setInterval(() => {
@@ -227,6 +256,7 @@ function runMaxNumDrill(difficulty, timeLimit) {
             toggleStart();
 
             answerField.removeEventListener('keydown', checkAnswer);
+            startButton.removeEventListener('click', quit);
 
             problemContainer.classList.add('hide');
             resultsElem.classList.add('show');

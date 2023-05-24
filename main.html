@@ -56,6 +56,7 @@
             </div>
         </div>
     </nav>
+    
     <main>
         <section class="settings">
             <div class="choose-mode container">
@@ -65,9 +66,9 @@
                     </h2>
                     <p>Choose a drill mode</p>
                 </div>
-
-                <div class="mode container number-of-problems">
-                    <div class="mode title number-of-problems">
+                
+                <div class="mode container min-time">
+                    <div class="mode title min-time">
                         <h3>
                             Blitz
                         </h3>
@@ -75,7 +76,8 @@
                             Solve the given number of problems in the shortest possible time
                         </p>
                     </div>
-                    <div class="mode options number-of-problems">
+                    <button class="mode button blitz" value="min-time">Choose Blitz</button>
+                    <div class="mode options min-time">
                         <p>Number of Problems</p>
                         <button class="num-btn active" value="20">
                             20
@@ -92,8 +94,8 @@
                     </div>
                 </div>
 
-                <div class="mode container time">
-                    <div class="mode title time">
+                <div class="mode container max-num">
+                    <div class="mode title max-num">
                         <h3>
                             Frenzy
                         </h3>
@@ -101,8 +103,9 @@
                             Solve as many problems as possible within the given time
                         </p>
                     </div>
-                    <div class="mode options time">
-                        <p>Time in Seconds</p>
+                    <button class="mode button frenzy" value="max-num">Choose Frenzy</button>
+                    <div class="mode options max-num">
+                        <p>Time (seconds)</p>
                         <button class="time-btn active" value="30">
                             30
                         </button>
